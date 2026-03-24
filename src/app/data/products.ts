@@ -164,9 +164,9 @@ export const products: Product[] = [
     category: "Casacos",
     description: "Casaco em lã premium com corte reto e acabamento impecável. Elegância para os dias frios.",
     details: ["Lã premium", "Corte reto", "Bolsos internos", "Forrado"],
-    image: "https://images.unsplash.com/photo-1695452819219-fa756a6e518d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3b21hbiUyMGNhbWVsJTIwd29vbCUyMGNvYXQlMjB3aW50ZXIlMjBmYXNoaW9ufGVufDF8fHx8MTc3MzA1NzIzOHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+    image: "https://images.unsplash.com/photo-1545912193-41b5212f30ee?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     images: [
-      "https://images.unsplash.com/photo-1695452819219-fa756a6e518d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3b21hbiUyMGNhbWVsJTIwd29vbCUyMGNvYXQlMjB3aW50ZXIlMjBmYXNoaW9ufGVufDF8fHx8MTc3MzA1NzIzOHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+      "https://images.unsplash.com/photo-1545912193-41b5212f30ee?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     ],
     colors: [
       { name: "Camel", hex: "#c4956a" },
