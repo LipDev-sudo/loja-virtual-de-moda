@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { Product } from "../data/products";
 
 export interface CartItem {
@@ -19,9 +19,25 @@ interface CartContextType {
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
+const CART_STORAGE_KEY = "lipdev-moda-cart";
+
+function loadCart(): CartItem[] {
+  if (typeof window === "undefined") return [];
+
+  try {
+    const stored = window.localStorage.getItem(CART_STORAGE_KEY);
+    return stored ? (JSON.parse(stored) as CartItem[]) : [];
+  } catch {
+    return [];
+  }
+}
 
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [items, setItems] = useState<CartItem[]>([]);
+  const [items, setItems] = useState<CartItem[]>(loadCart);
+
+  useEffect(() => {
+    window.localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
+  }, [items]);
 
   const addItem = (product: Product, color: string, size: string) => {
     setItems((prev) => {
