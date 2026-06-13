@@ -1,11 +1,12 @@
 {
-  "name": "@figma/my-make-file",
+  "name": "loja-virtual-de-moda",
   "private": true,
   "version": "0.0.1",
   "type": "module",
   "scripts": {
+    "dev": "vite",
     "build": "vite build",
-    "dev": "vite"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@emotion/react": "11.14.0",
@@ -85,5 +86,24 @@
     "overrides": {
       "vite": "6.3.5"
     }
-  }
+  },
+  "description": "E-commerce de moda feminina com visual editorial, vitrine de produtos, carrinho e experiencia de compra premium.",
+  "author": "Hamilton Felipe Soares da Silva",
+  "license": "MIT",
+  "homepage": "https://loja-virtual-de-moda.vercel.app/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LipDev-sudo/loja-virtual-de-moda.git"
+  },
+  "bugs": {
+    "url": "https://github.com/LipDev-sudo/loja-virtual-de-moda/issues"
+  },
+  "keywords": [
+    "fashion",
+    "ecommerce",
+    "react",
+    "vite",
+    "typescript",
+    "storefront"
+  ]
 }

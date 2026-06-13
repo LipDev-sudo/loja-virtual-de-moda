@@ -1,36 +1,66 @@
 # Loja Virtual de Moda
 
-Layout de e-commerce feminino com foco em design e experiencia do usuario.
+E-commerce de moda feminina com visual editorial, vitrine de produtos, carrinho e experiencia de compra premium.
 
-## Preview
+[![Live Demo](https://img.shields.io/badge/Live-Demo-00D4FF?style=for-the-badge)](https://loja-virtual-de-moda.vercel.app/)
+[![Portfolio](https://img.shields.io/badge/Portfolio-LipDev.BR-BEF264?style=for-the-badge)](https://lipdev.vercel.app/)
+[![GitHub](https://img.shields.io/badge/GitHub-LipDev--sudo-181717?style=for-the-badge&logo=github)](https://github.com/LipDev-sudo)
 
-[Ver Demo](https://loja-virtual-de-moda.vercel.app/)
+## Visao do projeto
 
-## Tecnologias
+Projeto focado em marcas de moda que precisam transmitir estilo, confianca e desejo de compra na primeira tela.
+
+## Demo
+
+- Aplicacao online: https://loja-virtual-de-moda.vercel.app/
+- Portfolio principal: https://lipdev.vercel.app/
+
+## Destaques
+
+- Vitrine com visual moderno e orientado a produto
+- Grid responsivo para colecoes e categorias
+- Carrinho de compras interativo
+- Experiencia mobile-first para compradores no celular
+- Base preparada para filtros, checkout e integracao com pagamentos
+
+## Stack
 
 - React
 - TypeScript
-- Tailwind CSS
 - Vite
+- Tailwind CSS
 
-## Como rodar
+## Como rodar localmente
 
 ```bash
 npm install
 npm run dev
 ```
 
-## Funcionalidades
+Para gerar uma build de producao:
 
-- Catalogo de produtos com grid responsivo
-- Pagina de detalhes do produto
-- Carrinho de compras
-- Design mobile-first
-- Interface moderna e clean
+```bash
+npm run build
+npm run preview
+```
+
+## Estrutura de evolucao
+
+Este projeto pode evoluir com:
+
+- Integracao com API real
+- Painel administrativo
+- Autenticacao de usuarios
+- Checkout ou integracao com WhatsApp
+- Banco de dados para produtos, pedidos e clientes
 
 ## Autor
 
-**Hamilton Felipe Soares da Silva** - [LipDev.BR](https://github.com/LipDev-sudo)
+Desenvolvido por **Hamilton Felipe Soares da Silva** - LipDev.BR.
+
+- Portfolio: https://lipdev.vercel.app/
+- GitHub: https://github.com/LipDev-sudo
+- LinkedIn: https://www.linkedin.com/in/hamilton-felipe-875054383/
 
 ## Licenca
 
