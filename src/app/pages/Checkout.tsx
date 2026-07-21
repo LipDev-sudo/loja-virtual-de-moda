@@ -83,6 +83,13 @@ export function Checkout() {
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        <div className="text-center mb-10">
+          <p className="eyebrow">Fluxo local e fictício</p>
+          <h1 className="mt-2" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "2.5rem", fontWeight: 500 }}>
+            Checkout demonstrativo
+          </h1>
+          <p className="text-gray-500 mt-2">Nenhum dado ou pagamento será processado.</p>
+        </div>
         {/* Steps */}
         <div className="flex items-center justify-center gap-4 sm:gap-8 mb-12">
           {steps.map((s, i) => (

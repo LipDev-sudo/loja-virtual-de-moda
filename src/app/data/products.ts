@@ -11,23 +11,17 @@ export interface Product {
   sizes: string[];
 }
 
-export const HERO_IMAGE =
-  "https://images.unsplash.com/photo-1771072426459-1ab467cd80f0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmYXNoaW9uJTIwZWRpdG9yaWFsJTIwbW9kZWwlMjBkYXJrJTIwYmFja2dyb3VuZHxlbnwxfHx8fDE3NzMwNTcyMzh8MA&ixlib=rb-4.1.0&q=80&w=1600";
-
-export const LOOKBOOK_IMAGE =
-  "https://images.unsplash.com/photo-1733324961705-97bd6cd7f4ba?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmYXNoaW9uJTIwcnVud2F5JTIwbW9kZWxzJTIwY29sbGVjdGlvbnxlbnwxfHx8fDE3NzMwNTcyMzl8MA&ixlib=rb-4.1.0&q=80&w=1600";
+export const LOOKBOOK_IMAGE = "/images/trama-clara-combinacao.webp";
 
 const image = {
-  dress:
-    "https://images.unsplash.com/photo-1741816219281-371d26f23fb7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixlib=rb-4.1.0&q=80&w=1080",
+  dress: "/images/trama-clara-vestido.webp",
   blazer:
     "https://images.unsplash.com/photo-1770364019737-aca75ef026fe?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixlib=rb-4.1.0&q=80&w=1080",
   bag:
     "https://images.unsplash.com/photo-1596552639068-99bd471b579c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixlib=rb-4.1.0&q=80&w=1080",
   sandal:
     "https://images.unsplash.com/photo-1566499003412-4736d6099504?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixlib=rb-4.1.0&q=80&w=1080",
-  shirt:
-    "https://images.unsplash.com/photo-1592339358596-774f79021f34?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixlib=rb-4.1.0&q=80&w=1080",
+  shirt: "/images/trama-clara-combinacao.webp",
   trousers:
     "https://images.unsplash.com/photo-1762331224129-783a3ea1fc3f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixlib=rb-4.1.0&q=80&w=1080",
   necklace:
