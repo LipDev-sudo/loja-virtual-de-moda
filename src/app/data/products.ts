@@ -2,7 +2,6 @@ export interface Product {
   id: string;
   name: string;
   price: number;
-  originalPrice?: number;
   category: string;
   description: string;
   details: string[];
@@ -10,182 +9,169 @@ export interface Product {
   images: string[];
   colors: { name: string; hex: string }[];
   sizes: string[];
-  isNew?: boolean;
-  isSale?: boolean;
 }
 
-export const HERO_IMAGE = "https://images.unsplash.com/photo-1771072426459-1ab467cd80f0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmYXNoaW9uJTIwZWRpdG9yaWFsJTIwbW9kZWwlMjBkYXJrJTIwYmFja2dyb3VuZHxlbnwxfHx8fDE3NzMwNTcyMzh8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral";
+export const HERO_IMAGE =
+  "https://images.unsplash.com/photo-1771072426459-1ab467cd80f0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmYXNoaW9uJTIwZWRpdG9yaWFsJTIwbW9kZWwlMjBkYXJrJTIwYmFja2dyb3VuZHxlbnwxfHx8fDE3NzMwNTcyMzh8MA&ixlib=rb-4.1.0&q=80&w=1600";
 
-export const LOOKBOOK_IMAGE = "https://images.unsplash.com/photo-1733324961705-97bd6cd7f4ba?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmYXNoaW9uJTIwcnVud2F5JTIwbW9kZWxzJTIwY29sbGVjdGlvbnxlbnwxfHx8fDE3NzMwNTcyMzl8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral";
+export const LOOKBOOK_IMAGE =
+  "https://images.unsplash.com/photo-1733324961705-97bd6cd7f4ba?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmYXNoaW9uJTIwcnVud2F5JTIwbW9kZWxzJTIwY29sbGVjdGlvbnxlbnwxfHx8fDE3NzMwNTcyMzl8MA&ixlib=rb-4.1.0&q=80&w=1600";
 
-export const CATEGORY_IMAGES = {
-  vestidos: "https://images.unsplash.com/photo-1763987275895-72f645d0acbc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3b21hbiUyMGZsb3JhbCUyMGRyZXNzJTIwc3VtbWVyJTIwb3V0ZG9vcnN8ZW58MXx8fHwxNzczMDU3MjM4fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-  blazers: "https://images.unsplash.com/photo-1767609127923-14192f306af8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmYXNoaW9uJTIwd29tYW4lMjBibGF6ZXIlMjBzdHJlZXQlMjBzdHlsZXxlbnwxfHx8fDE3NzMwNTcyMzl8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-  acessorios: "https://images.unsplash.com/photo-1717282924526-07a7373bb142?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxnb2xkJTIwbmVja2xhY2UlMjBqZXdlbHJ5JTIwcHJvZHVjdCUyMHdoaXRlfGVufDF8fHx8MTc3MzA1NzIzN3ww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-  bolsas: "https://images.unsplash.com/photo-1611350037371-f9e6a7da240a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBjcm9zc2JvZHklMjBiYWclMjBjbG9zZSUyMHVwfGVufDF8fHx8MTc3MzA1NzI0MHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+const image = {
+  dress:
+    "https://images.unsplash.com/photo-1741816219281-371d26f23fb7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixlib=rb-4.1.0&q=80&w=1080",
+  blazer:
+    "https://images.unsplash.com/photo-1770364019737-aca75ef026fe?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixlib=rb-4.1.0&q=80&w=1080",
+  bag:
+    "https://images.unsplash.com/photo-1596552639068-99bd471b579c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixlib=rb-4.1.0&q=80&w=1080",
+  sandal:
+    "https://images.unsplash.com/photo-1566499003412-4736d6099504?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixlib=rb-4.1.0&q=80&w=1080",
+  shirt:
+    "https://images.unsplash.com/photo-1592339358596-774f79021f34?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixlib=rb-4.1.0&q=80&w=1080",
+  trousers:
+    "https://images.unsplash.com/photo-1762331224129-783a3ea1fc3f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixlib=rb-4.1.0&q=80&w=1080",
+  necklace:
+    "https://images.unsplash.com/photo-1717282924526-07a7373bb142?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixlib=rb-4.1.0&q=80&w=1080",
+  coat:
+    "https://images.unsplash.com/photo-1545912193-41b5212f30ee?q=80&w=1080&auto=format&fit=crop&ixlib=rb-4.1.0",
 };
 
 export const products: Product[] = [
   {
     id: "1",
-    name: "Vestido Midi Seda",
-    price: 1290,
-    category: "Vestidos",
-    description: "Vestido midi em seda pura com caimento fluido e elegante. Perfeito para ocasiões especiais e eventos sofisticados.",
-    details: ["100% Seda pura", "Caimento fluido", "Forro interno", "Lavagem a seco"],
-    image: "https://images.unsplash.com/photo-1741816219281-371d26f23fb7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3b21hbiUyMHdlYXJpbmclMjBlbGVnYW50JTIwYmxhY2slMjBkcmVzcyUyMHN0dWRpb3xlbnwxfHx8fDE3NzMwNTcyMzR8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-    images: [
-      "https://images.unsplash.com/photo-1741816219281-371d26f23fb7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3b21hbiUyMHdlYXJpbmclMjBlbGVnYW50JTIwYmxhY2slMjBkcmVzcyUyMHN0dWRpb3xlbnwxfHx8fDE3NzMwNTcyMzR8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      "https://images.unsplash.com/photo-1773005695434-69abf20398cc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3b21hbiUyMGRyZXNzJTIwZWxlZ2FudCUyMGV2ZW5pbmclMjBnb3dufGVufDF8fHx8MTc3MzA1NzIzOXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-    ],
+    name: "Camisa Ampla Areia",
+    price: 349,
+    category: "Partes de cima",
+    description:
+      "Camisa demonstrativa de modelagem ampla, pensada para funcionar aberta, fechada ou com as mangas dobradas.",
+    details: ["Algodão demonstrativo", "Modelagem ampla", "Barra levemente arredondada"],
+    image: image.shirt,
+    images: [image.shirt],
     colors: [
-      { name: "Preto", hex: "#1a1a1a" },
-      { name: "Champagne", hex: "#f5e6d3" },
-      { name: "Bordeaux", hex: "#722f37" },
+      { name: "Areia", hex: "#c8b79f" },
+      { name: "Branco", hex: "#f4f3ef" },
     ],
     sizes: ["PP", "P", "M", "G", "GG"],
-    isNew: true,
   },
   {
     id: "2",
-    name: "Blazer Alfaiataria",
-    price: 890,
-    originalPrice: 1190,
-    category: "Blazers",
-    description: "Blazer estruturado em tecido premium com corte impecável. Versatilidade que transita do escritório ao jantar.",
-    details: ["Tecido premium", "Corte estruturado", "Dois bolsos frontais", "Forro acetinado"],
-    image: "https://images.unsplash.com/photo-1770364019737-aca75ef026fe?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3b21hbiUyMGJsYXplciUyMHByb2Zlc3Npb25hbCUyMG91dGZpdHxlbnwxfHx8fDE3NzMwNTcyMzZ8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-    images: [
-      "https://images.unsplash.com/photo-1770364019737-aca75ef026fe?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3b21hbiUyMGJsYXplciUyMHByb2Zlc3Npb25hbCUyMG91dGZpdHxlbnwxfHx8fDE3NzMwNTcyMzZ8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      "https://images.unsplash.com/photo-1767609127923-14192f306af8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmYXNoaW9uJTIwd29tYW4lMjBibGF6ZXIlMjBzdHJlZXQlMjBzdHlsZXxlbnwxfHx8fDE3NzMwNTcyMzl8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-    ],
+    name: "Calça Reta Grafite",
+    price: 399,
+    category: "Partes de baixo",
+    description:
+      "Calça demonstrativa de cintura alta e perna reta para combinar com camisas, tricôs e terceiras peças.",
+    details: ["Tecido plano demonstrativo", "Cintura alta", "Bolsos laterais"],
+    image: image.trousers,
+    images: [image.trousers],
     colors: [
-      { name: "Preto", hex: "#1a1a1a" },
-      { name: "Camel", hex: "#c4956a" },
+      { name: "Grafite", hex: "#343638" },
+      { name: "Aveia", hex: "#c9bea9" },
     ],
-    sizes: ["PP", "P", "M", "G", "GG"],
-    isSale: true,
+    sizes: ["34", "36", "38", "40", "42", "44"],
   },
   {
     id: "3",
-    name: "Bolsa Couro Italiano",
-    price: 2490,
-    category: "Bolsas",
-    description: "Bolsa em couro italiano legítimo com acabamento artesanal. Uma peça atemporal para compor qualquer look.",
-    details: ["Couro italiano legítimo", "Acabamento artesanal", "Alça ajustável", "Fecho magnético"],
-    image: "https://images.unsplash.com/photo-1596552639068-99bd471b579c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsZWF0aGVyJTIwaGFuZGJhZyUyMHByb2R1Y3QlMjBwaG90b2dyYXBoeXxlbnwxfHx8fDE3NzMwNTIzOTd8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-    images: [
-      "https://images.unsplash.com/photo-1596552639068-99bd471b579c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsZWF0aGVyJTIwaGFuZGJhZyUyMHByb2R1Y3QlMjBwaG90b2dyYXBoeXxlbnwxfHx8fDE3NzMwNTIzOTd8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      "https://images.unsplash.com/photo-1611350037371-f9e6a7da240a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBjcm9zc2JvZHklMjBiYWclMjBjbG9zZSUyMHVwfGVufDF8fHx8MTc3MzA1NzI0MHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-    ],
+    name: "Blazer Leve Argila",
+    price: 499,
+    category: "Terceiras peças",
+    description:
+      "Blazer demonstrativo sem estrutura rígida, criado para acrescentar uma camada sem pesar a composição.",
+    details: ["Viscose demonstrativa", "Ombro natural", "Dois bolsos frontais"],
+    image: image.blazer,
+    images: [image.blazer],
     colors: [
-      { name: "Cognac", hex: "#9a4e1c" },
-      { name: "Preto", hex: "#1a1a1a" },
-      { name: "Creme", hex: "#f5f0e8" },
+      { name: "Argila", hex: "#a65a4b" },
+      { name: "Preto", hex: "#1f2021" },
     ],
-    sizes: ["Único"],
-    isNew: true,
+    sizes: ["PP", "P", "M", "G", "GG"],
   },
   {
     id: "4",
-    name: "Sandália Salto Bloco",
-    price: 690,
-    category: "Sapatos",
-    description: "Sandália de salto bloco em couro macio com design contemporâneo. Conforto e elegância em cada passo.",
-    details: ["Couro macio", "Salto bloco 7cm", "Palmilha acolchoada", "Solado antiderrapante"],
-    image: "https://images.unsplash.com/photo-1566499003412-4736d6099504?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3b21hbiUyMGhpZ2glMjBoZWVsJTIwc2FuZGFscyUyMHByb2R1Y3R8ZW58MXx8fHwxNzczMDU3MjM2fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-    images: [
-      "https://images.unsplash.com/photo-1566499003412-4736d6099504?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3b21hbiUyMGhpZ2glMjBoZWVsJTIwc2FuZGFscyUyMHByb2R1Y3R8ZW58MXx8fHwxNzczMDU3MjM2fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      "https://images.unsplash.com/photo-1676838179247-6e60dba67d5c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzdGlsZXR0byUyMHNob2VzJTIwYmxhY2slMjBwcm9kdWN0JTIwcGhvdG98ZW58MXx8fHwxNzczMDU3MjQwfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-    ],
+    name: "Vestido Coluna Preto",
+    price: 439,
+    category: "Vestidos",
+    description:
+      "Vestido demonstrativo de linhas simples, adequado para sobreposições e mudanças rápidas de contexto.",
+    details: ["Malha de viscose demonstrativa", "Comprimento midi", "Fenda lateral"],
+    image: image.dress,
+    images: [image.dress],
     colors: [
-      { name: "Nude", hex: "#d4a574" },
-      { name: "Preto", hex: "#1a1a1a" },
+      { name: "Preto", hex: "#171819" },
+      { name: "Telha", hex: "#934c3e" },
     ],
-    sizes: ["35", "36", "37", "38", "39", "40"],
+    sizes: ["PP", "P", "M", "G", "GG"],
   },
   {
     id: "5",
-    name: "Blusa Cetim",
-    price: 490,
-    category: "Blusas",
-    description: "Blusa em cetim com brilho sutil e toque sedoso. Peça versátil para composições elegantes.",
-    details: ["Cetim premium", "Toque sedoso", "Modelagem solta", "Botões forrados"],
-    image: "https://images.unsplash.com/photo-1592339358596-774f79021f34?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3b21hbiUyMHNhdGluJTIwYmxvdXNlJTIwZmFzaGlvbiUyMHBvcnRyYWl0fGVufDF8fHx8MTc3MzA1NzIzN3ww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-    images: [
-      "https://images.unsplash.com/photo-1592339358596-774f79021f34?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3b21hbiUyMHNhdGluJTIwYmxvdXNlJTIwZmFzaGlvbiUyMHBvcnRyYWl0fGVufDF8fHx8MTc3MzA1NzIzN3ww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-    ],
+    name: "Blusa Fluida Marfim",
+    price: 289,
+    category: "Partes de cima",
+    description:
+      "Blusa demonstrativa de toque leve e desenho limpo para usar sozinha ou sob o blazer da cápsula.",
+    details: ["Viscose demonstrativa", "Modelagem solta", "Acabamento fosco"],
+    image: image.shirt,
+    images: [image.shirt],
     colors: [
-      { name: "Off-White", hex: "#faf8f5" },
-      { name: "Rosa Antigo", hex: "#c4858a" },
-      { name: "Verde Oliva", hex: "#556b2f" },
+      { name: "Marfim", hex: "#e8e2d7" },
+      { name: "Preto", hex: "#1f2021" },
     ],
     sizes: ["PP", "P", "M", "G"],
   },
   {
     id: "6",
-    name: "Calça Wide Leg",
-    price: 590,
-    category: "Calças",
-    description: "Calça wide leg em tecido fluido com cintura alta. Silhueta moderna que alonga e valoriza.",
-    details: ["Tecido fluido", "Cintura alta", "Pernas amplas", "Zíper lateral invisível"],
-    image: "https://images.unsplash.com/photo-1762331224129-783a3ea1fc3f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3b21hbiUyMHdpZGUlMjBsZWclMjB0cm91c2VycyUyMG91dGZpdHxlbnwxfHx8fDE3NzMwNTcyMzZ8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-    images: [
-      "https://images.unsplash.com/photo-1762331224129-783a3ea1fc3f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3b21hbiUyMHdpZGUlMjBsZWclMjB0cm91c2VycyUyMG91dGZpdHxlbnwxfHx8fDE3NzMwNTcyMzZ8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-    ],
+    name: "Casaco Reto Aveia",
+    price: 549,
+    category: "Terceiras peças",
+    description:
+      "Casaco demonstrativo de corte reto para concluir as combinações de dias mais frios sem excesso de volume.",
+    details: ["Lã mista demonstrativa", "Corte reto", "Forro leve"],
+    image: image.coat,
+    images: [image.coat],
     colors: [
-      { name: "Preto", hex: "#1a1a1a" },
-      { name: "Bege", hex: "#d4c5a9" },
+      { name: "Aveia", hex: "#b9aa92" },
+      { name: "Grafite", hex: "#444648" },
     ],
     sizes: ["PP", "P", "M", "G", "GG"],
   },
   {
     id: "7",
-    name: "Colar Dourado Minimal",
-    price: 390,
+    name: "Bolsa Estruturada Conhaque",
+    price: 379,
     category: "Acessórios",
-    description: "Colar em banho de ouro 18k com design minimalista. A joia perfeita para o dia a dia sofisticado.",
-    details: ["Banho de ouro 18k", "Design minimalista", "Fecho ajustável", "Antialérgico"],
-    image: "https://images.unsplash.com/photo-1717282924526-07a7373bb142?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxnb2xkJTIwbmVja2xhY2UlMjBqZXdlbHJ5JTIwcHJvZHVjdCUyMHdoaXRlfGVufDF8fHx8MTc3MzA1NzIzN3ww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-    images: [
-      "https://images.unsplash.com/photo-1717282924526-07a7373bb142?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxnb2xkJTIwbmVja2xhY2UlMjBqZXdlbHJ5JTIwcHJvZHVjdCUyMHdoaXRlfGVufDF8fHx8MTc3MzA1NzIzN3ww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-    ],
+    description:
+      "Bolsa demonstrativa compacta com espaço para os itens essenciais do cotidiano.",
+    details: ["Material sintético demonstrativo", "Alça regulável", "Fecho magnético"],
+    image: image.bag,
+    images: [image.bag],
     colors: [
-      { name: "Dourado", hex: "#d4a94c" },
-      { name: "Prata", hex: "#c0c0c0" },
+      { name: "Conhaque", hex: "#8f4e2c" },
+      { name: "Preto", hex: "#1f2021" },
     ],
     sizes: ["Único"],
   },
   {
     id: "8",
-    name: "Casaco Lã Premium",
-    price: 1890,
-    originalPrice: 2390,
-    category: "Casacos",
-    description: "Casaco em lã premium com corte reto e acabamento impecável. Elegância para os dias frios.",
-    details: ["Lã premium", "Corte reto", "Bolsos internos", "Forrado"],
-    image: "https://images.unsplash.com/photo-1545912193-41b5212f30ee?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    images: [
-      "https://images.unsplash.com/photo-1545912193-41b5212f30ee?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    ],
+    name: "Sandália Bloco Preta",
+    price: 329,
+    category: "Acessórios",
+    description:
+      "Sandália demonstrativa de linhas discretas para acompanhar todas as bases da cápsula.",
+    details: ["Material sintético demonstrativo", "Salto bloco de 5 cm", "Fivela ajustável"],
+    image: image.sandal,
+    images: [image.sandal, image.necklace],
     colors: [
-      { name: "Camel", hex: "#c4956a" },
-      { name: "Cinza", hex: "#808080" },
-      { name: "Preto", hex: "#1a1a1a" },
+      { name: "Preto", hex: "#1f2021" },
+      { name: "Conhaque", hex: "#8f4e2c" },
     ],
-    sizes: ["PP", "P", "M", "G", "GG"],
-    isSale: true,
+    sizes: ["35", "36", "37", "38", "39", "40"],
   },
 ];
 
 export const categories = [
-  "Todos",
+  "Todas",
+  "Partes de cima",
+  "Partes de baixo",
+  "Terceiras peças",
   "Vestidos",
-  "Blazers",
-  "Blusas",
-  "Calças",
-  "Casacos",
-  "Bolsas",
-  "Sapatos",
   "Acessórios",
 ];
