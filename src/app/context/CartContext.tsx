@@ -10,7 +10,7 @@ export interface CartItem {
 
 interface CartContextType {
   items: CartItem[];
-  addItem: (product: Product, color: string, size: string) => void;
+  addItem: (product: Product, color: string, size: string, quantity?: number) => void;
   removeItem: (productId: string, color: string, size: string) => void;
   updateQuantity: (productId: string, color: string, size: string, quantity: number) => void;
   clearCart: () => void;
@@ -39,7 +39,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     window.localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
   }, [items]);
 
-  const addItem = (product: Product, color: string, size: string) => {
+  const addItem = (product: Product, color: string, size: string, quantity = 1) => {
     setItems((prev) => {
       const existing = prev.find(
         (i) => i.product.id === product.id && i.selectedColor === color && i.selectedSize === size
@@ -47,11 +47,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
       if (existing) {
         return prev.map((i) =>
           i.product.id === product.id && i.selectedColor === color && i.selectedSize === size
-            ? { ...i, quantity: i.quantity + 1 }
+            ? { ...i, quantity: i.quantity + quantity }
             : i
         );
       }
-      return [...prev, { product, quantity: 1, selectedColor: color, selectedSize: size }];
+      return [...prev, { product, quantity, selectedColor: color, selectedSize: size }];
     });
   };
 

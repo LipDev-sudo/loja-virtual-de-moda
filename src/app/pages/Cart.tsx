@@ -4,36 +4,36 @@ import { Minus, Plus, X, ShoppingBag, ArrowRight } from "lucide-react";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 
 export function Cart() {
-  const { items, updateQuantity, removeItem, totalPrice } = useCart();
+  const { items, updateQuantity, removeItem, totalItems, totalPrice } = useCart();
 
   const formatPrice = (price: number) =>
     new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(price);
 
-  const shipping = totalPrice >= 500 ? 0 : 29.9;
+  const shipping = 29.9;
   const total = totalPrice + shipping;
 
   if (items.length === 0) {
     return (
       <div className="min-h-[60vh] flex flex-col items-center justify-center px-4">
-        <ShoppingBag className="w-16 h-16 text-gray-200 mb-6" />
+        <ShoppingBag aria-hidden="true" className="w-16 h-16 text-gray-200 mb-6" />
         <h1
           className="mb-3"
           style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.8rem", fontWeight: 400 }}
         >
-          Seu carrinho está vazio
+          Sua sacola está vazia
         </h1>
         <p
           className="text-gray-500 mb-8"
           style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.85rem" }}
         >
-          Explore nossa coleção e encontre peças incríveis.
+          Escolha uma peça da cápsula para testar o fluxo demonstrativo.
         </p>
         <Link
           to="/catalogo"
           className="bg-black text-white px-8 py-3.5 hover:bg-gray-800 transition-colors tracking-[0.15em] uppercase"
           style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.8rem" }}
         >
-          Explorar Coleção
+          Explorar a cápsula
         </Link>
       </div>
     );
@@ -51,7 +51,7 @@ export function Cart() {
             letterSpacing: "0.05em",
           }}
         >
-          Carrinho ({items.length} {items.length === 1 ? "item" : "itens"})
+          Sacola ({totalItems} {totalItems === 1 ? "item" : "itens"})
         </h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
@@ -81,10 +81,12 @@ export function Cart() {
                         </h3>
                       </Link>
                       <button
+                        type="button"
+                        aria-label={`Remover ${item.product.name} da sacola`}
                         onClick={() => removeItem(item.product.id, item.selectedColor, item.selectedSize)}
                         className="p-1 text-gray-400 hover:text-black transition-colors flex-shrink-0"
                       >
-                        <X className="w-4 h-4" />
+                        <X aria-hidden="true" className="w-4 h-4" />
                       </button>
                     </div>
                     <div className="mt-1 space-y-0.5">
@@ -99,10 +101,12 @@ export function Cart() {
                   <div className="flex items-center justify-between mt-3">
                     <div className="flex items-center border border-gray-200">
                       <button
+                        type="button"
+                        aria-label={`Diminuir quantidade de ${item.product.name}`}
                         className="p-2 hover:bg-gray-50"
                         onClick={() => updateQuantity(item.product.id, item.selectedColor, item.selectedSize, item.quantity - 1)}
                       >
-                        <Minus className="w-3 h-3" />
+                        <Minus aria-hidden="true" className="w-3 h-3" />
                       </button>
                       <span
                         className="w-8 text-center"
@@ -111,10 +115,12 @@ export function Cart() {
                         {item.quantity}
                       </span>
                       <button
+                        type="button"
+                        aria-label={`Aumentar quantidade de ${item.product.name}`}
                         className="p-2 hover:bg-gray-50"
                         onClick={() => updateQuantity(item.product.id, item.selectedColor, item.selectedSize, item.quantity + 1)}
                       >
-                        <Plus className="w-3 h-3" />
+                        <Plus aria-hidden="true" className="w-3 h-3" />
                       </button>
                     </div>
                     <span
@@ -136,7 +142,7 @@ export function Cart() {
                 className="mb-6 tracking-[0.1em] uppercase"
                 style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.85rem", fontWeight: 500 }}
               >
-                Resumo do Pedido
+                Resumo da demonstração
               </h3>
 
               <div className="space-y-3 mb-6">
@@ -150,19 +156,13 @@ export function Cart() {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-500" style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.8rem" }}>
-                    Envio
+                    Entrega simulada
                   </span>
                   <span style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.8rem" }}>
-                    {shipping === 0 ? "Grátis" : formatPrice(shipping)}
+                    {formatPrice(shipping)}
                   </span>
                 </div>
               </div>
-
-              {shipping > 0 && (
-                <p className="text-gray-500 mb-4 pb-4 border-b border-gray-200" style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.7rem" }}>
-                  Faltam {formatPrice(500 - totalPrice)} para frete grátis
-                </p>
-              )}
 
               <div className="flex justify-between mb-6 pt-3 border-t border-gray-200">
                 <span
@@ -181,8 +181,8 @@ export function Cart() {
                 className="w-full flex items-center justify-center gap-2 bg-black text-white py-3.5 hover:bg-gray-800 transition-colors tracking-[0.15em] uppercase"
                 style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.8rem" }}
               >
-                Finalizar Compra
-                <ArrowRight className="w-4 h-4" />
+                Continuar para o checkout
+                <ArrowRight aria-hidden="true" className="w-4 h-4" />
               </Link>
 
               <Link

@@ -19,8 +19,16 @@ export function ProductDetail() {
 
   if (!product) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p style={{ fontFamily: "'Inter', sans-serif" }}>Produto não encontrado.</p>
+      <div className="min-h-screen flex flex-col gap-4 items-center justify-center px-4 text-center">
+        <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "2rem" }}>
+          Produto não encontrado
+        </h1>
+        <p style={{ fontFamily: "'Inter', sans-serif" }}>
+          Esta peça não faz parte da cápsula demonstrativa.
+        </p>
+        <Link className="text-link" to="/catalogo">
+          Voltar ao catálogo
+        </Link>
       </div>
     );
   }
@@ -33,8 +41,10 @@ export function ProductDetail() {
       toast.error("Selecione um tamanho");
       return;
     }
-    addItem(product, product.colors[selectedColor].name, product.sizes[selectedSize]);
-    toast.success("Adicionado ao carrinho!");
+    addItem(product, product.colors[selectedColor].name, product.sizes[selectedSize], quantity);
+    toast.success(
+      `${quantity} ${quantity === 1 ? "peça adicionada" : "peças adicionadas"} à sacola.`,
+    );
   };
 
   const relatedProducts = products.filter((p) => p.id !== product.id && p.category === product.category).slice(0, 4);
@@ -47,9 +57,9 @@ export function ProductDetail() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <div className="flex items-center gap-2 text-gray-400" style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.75rem" }}>
           <Link to="/" className="hover:text-black transition-colors">Home</Link>
-          <ChevronRight className="w-3 h-3" />
-          <Link to="/catalogo" className="hover:text-black transition-colors">Coleção</Link>
-          <ChevronRight className="w-3 h-3" />
+          <ChevronRight className="w-3 h-3" aria-hidden="true" />
+          <Link to="/catalogo" className="hover:text-black transition-colors">Cápsula</Link>
+          <ChevronRight className="w-3 h-3" aria-hidden="true" />
           <span className="text-gray-700">{product.name}</span>
         </div>
       </div>
@@ -70,6 +80,8 @@ export function ProductDetail() {
               <div className="flex gap-3">
                 {product.images.map((img, i) => (
                   <button
+                    type="button"
+                    aria-label={`Mostrar imagem ${i + 1} de ${product.name}`}
                     key={i}
                     onClick={() => setSelectedImage(i)}
                     className={`w-20 h-24 overflow-hidden border-2 transition-colors ${
@@ -86,14 +98,6 @@ export function ProductDetail() {
           {/* Product Info */}
           <div className="lg:py-8">
             <div className="sticky top-28">
-              {product.isNew && (
-                <span
-                  className="inline-block mb-4 text-gray-500 tracking-[0.2em] uppercase"
-                  style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.7rem" }}
-                >
-                  Novidade
-                </span>
-              )}
               <h1
                 className="mb-3"
                 style={{
@@ -112,14 +116,6 @@ export function ProductDetail() {
                 >
                   {formatPrice(product.price)}
                 </span>
-                {product.originalPrice && (
-                  <span
-                    className="text-gray-400 line-through"
-                    style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.9rem" }}
-                  >
-                    {formatPrice(product.originalPrice)}
-                  </span>
-                )}
               </div>
 
               <p
@@ -140,6 +136,9 @@ export function ProductDetail() {
                 <div className="flex gap-2.5">
                   {product.colors.map((color, i) => (
                     <button
+                      type="button"
+                      aria-label={`Selecionar cor ${color.name}`}
+                      aria-pressed={selectedColor === i}
                       key={color.name}
                       onClick={() => setSelectedColor(i)}
                       className={`w-8 h-8 rounded-full relative transition-all ${
@@ -149,7 +148,7 @@ export function ProductDetail() {
                       title={color.name}
                     >
                       {selectedColor === i && (
-                        <Check className={`w-3.5 h-3.5 absolute inset-0 m-auto ${color.hex === "#1a1a1a" || color.hex === "#722f37" || color.hex === "#556b2f" ? "text-white" : "text-black"}`} />
+                        <Check aria-hidden="true" className={`w-3.5 h-3.5 absolute inset-0 m-auto ${color.hex === "#1a1a1a" || color.hex === "#722f37" || color.hex === "#556b2f" ? "text-white" : "text-black"}`} />
                       )}
                     </button>
                   ))}
@@ -165,16 +164,15 @@ export function ProductDetail() {
                   >
                     Tamanho
                   </label>
-                  <button
-                    className="text-gray-500 underline underline-offset-2"
-                    style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.75rem" }}
-                  >
-                    Guia de tamanhos
-                  </button>
+                  <span className="text-gray-500" style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.75rem" }}>
+                    Selecione uma opção
+                  </span>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {product.sizes.map((size, i) => (
                     <button
+                      type="button"
+                      aria-pressed={selectedSize === i}
                       key={size}
                       onClick={() => setSelectedSize(i)}
                       className={`min-w-[48px] h-11 px-4 border transition-all ${
@@ -194,10 +192,12 @@ export function ProductDetail() {
               <div className="flex gap-3 mb-6">
                 <div className="flex items-center border border-gray-200">
                   <button
+                    type="button"
+                    aria-label="Diminuir quantidade"
                     className="p-3 hover:bg-gray-50 transition-colors"
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
                   >
-                    <Minus className="w-3.5 h-3.5" />
+                    <Minus className="w-3.5 h-3.5" aria-hidden="true" />
                   </button>
                   <span
                     className="w-10 text-center"
@@ -206,26 +206,32 @@ export function ProductDetail() {
                     {quantity}
                   </span>
                   <button
+                    type="button"
+                    aria-label="Aumentar quantidade"
                     className="p-3 hover:bg-gray-50 transition-colors"
                     onClick={() => setQuantity(quantity + 1)}
                   >
-                    <Plus className="w-3.5 h-3.5" />
+                    <Plus className="w-3.5 h-3.5" aria-hidden="true" />
                   </button>
                 </div>
 
                 <button
+                  type="button"
                   onClick={handleAddToCart}
                   className="flex-1 bg-black text-white hover:bg-gray-800 transition-colors tracking-[0.15em] uppercase"
                   style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.8rem" }}
                 >
-                  Adicionar ao Carrinho
+                  Adicionar à sacola
                 </button>
 
                 <button
+                  type="button"
+                  aria-label={`${liked ? "Remover" : "Salvar"} ${product.name}`}
+                  aria-pressed={liked}
                   onClick={() => setLiked(!liked)}
                   className="p-3 border border-gray-200 hover:border-black transition-colors"
                 >
-                  <Heart className={`w-5 h-5 ${liked ? "fill-red-500 text-red-500" : "text-gray-600"}`} />
+                  <Heart aria-hidden="true" className={`w-5 h-5 ${liked ? "fill-red-500 text-red-500" : "text-gray-600"}`} />
                 </button>
               </div>
 
@@ -235,7 +241,7 @@ export function ProductDetail() {
                   className="mb-3 tracking-[0.1em] uppercase text-gray-900"
                   style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.75rem", fontWeight: 500 }}
                 >
-                  Detalhes do Produto
+                  Detalhes da peça
                 </h4>
                 <ul className="space-y-2">
                   {product.details.map((detail) => (
@@ -244,7 +250,7 @@ export function ProductDetail() {
                       className="text-gray-500 flex items-center gap-2"
                       style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.8rem" }}
                     >
-                      <span className="w-1 h-1 bg-gray-300 rounded-full" />
+                      <span aria-hidden="true" className="w-1 h-1 bg-gray-300 rounded-full" />
                       {detail}
                     </li>
                   ))}
@@ -264,7 +270,7 @@ export function ProductDetail() {
                 fontWeight: 400,
               }}
             >
-              Você também pode gostar
+              Combine também com
             </h2>
             <div className="w-12 h-[1px] bg-black mx-auto mt-4" />
           </div>

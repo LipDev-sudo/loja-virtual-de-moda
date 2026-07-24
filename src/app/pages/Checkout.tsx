@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { type ChangeEvent, type FormEvent, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { useCart } from "../context/CartContext";
 import { ChevronRight, Lock, Check } from "lucide-react";
@@ -9,15 +9,37 @@ export function Checkout() {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [orderPlaced, setOrderPlaced] = useState(false);
+  const [showValidationError, setShowValidationError] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    postalCode: "",
+    address: "",
+    complement: "",
+    district: "",
+    city: "",
+    state: "",
+    cardNumber: "",
+    cardName: "",
+    cardExpiry: "",
+    cardCvv: "",
+  });
 
   const formatPrice = (price: number) =>
     new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(price);
 
-  const shipping = totalPrice >= 500 ? 0 : 29.9;
+  const shipping = 29.9;
   const total = totalPrice + shipping;
 
+  useEffect(() => {
+    if (items.length === 0 && !orderPlaced) {
+      navigate("/carrinho", { replace: true });
+    }
+  }, [items.length, navigate, orderPlaced]);
+
   if (items.length === 0 && !orderPlaced) {
-    navigate("/carrinho");
     return null;
   }
 
@@ -25,40 +47,47 @@ export function Checkout() {
     return (
       <div className="min-h-[70vh] flex flex-col items-center justify-center px-4 text-center">
         <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6">
-          <Check className="w-8 h-8 text-green-600" />
+          <Check aria-hidden="true" className="w-8 h-8 text-green-600" />
         </div>
         <h1
           className="mb-3"
           style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "2rem", fontWeight: 400 }}
         >
-          Pedido Confirmado!
+          Demonstração concluída
         </h1>
         <p
           className="text-gray-500 mb-2 max-w-md"
           style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.85rem", lineHeight: 1.7 }}
         >
-          Obrigada pela sua compra. Você receberá um e-mail com os detalhes do seu pedido.
+          O fluxo foi concluído localmente. Nenhum pedido, pagamento ou dado foi enviado.
         </p>
         <p
           className="text-gray-400 mb-8"
           style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.8rem" }}
         >
-          Pedido #MN-2026-{Math.floor(Math.random() * 9000 + 1000)}
+          Referência fictícia #TRAMA-DEMO
         </p>
         <Link
           to="/"
           className="bg-black text-white px-8 py-3.5 hover:bg-gray-800 transition-colors tracking-[0.15em] uppercase"
           style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.8rem" }}
         >
-          Voltar à Loja
+          Voltar à cápsula
         </Link>
       </div>
     );
   }
 
-  const handleSubmit = () => {
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setFormData((current) => ({ ...current, [event.target.name]: event.target.value }));
+    setShowValidationError(false);
+  };
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setShowValidationError(false);
     if (step < 3) {
-      setStep(step + 1);
+      setStep((current) => current + 1);
       return;
     }
     clearCart();
@@ -78,10 +107,21 @@ export function Checkout() {
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        <div className="text-center mb-10">
+          <p className="eyebrow">Fluxo local e fictício</p>
+          <h1 className="mt-2" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "2.5rem", fontWeight: 500 }}>
+            Checkout demonstrativo
+          </h1>
+          <p className="text-gray-500 mt-2">Nenhum dado ou pagamento será processado.</p>
+        </div>
         {/* Steps */}
-        <div className="flex items-center justify-center gap-4 sm:gap-8 mb-12">
+        <ol className="flex items-center justify-center gap-4 sm:gap-8 mb-12" aria-label="Etapas do checkout">
           {steps.map((s, i) => (
-            <div key={s.num} className="flex items-center gap-2 sm:gap-4">
+            <li
+              key={s.num}
+              className="flex items-center gap-2 sm:gap-4"
+              aria-current={step === s.num ? "step" : undefined}
+            >
               <div className="flex items-center gap-2">
                 <div
                   className={`w-7 h-7 rounded-full flex items-center justify-center transition-colors ${
@@ -89,7 +129,7 @@ export function Checkout() {
                   }`}
                   style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.7rem" }}
                 >
-                  {step > s.num ? <Check className="w-3.5 h-3.5" /> : s.num}
+                  {step > s.num ? <Check aria-hidden="true" className="w-3.5 h-3.5" /> : s.num}
                 </div>
                 <span
                   className={`hidden sm:inline ${step >= s.num ? "text-black" : "text-gray-400"}`}
@@ -99,15 +139,19 @@ export function Checkout() {
                 </span>
               </div>
               {i < steps.length - 1 && (
-                <ChevronRight className="w-4 h-4 text-gray-300" />
+                <ChevronRight aria-hidden="true" className="w-4 h-4 text-gray-300" />
               )}
-            </div>
+            </li>
           ))}
-        </div>
+        </ol>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           {/* Form */}
-          <div className="lg:col-span-2">
+          <form
+            className="lg:col-span-2"
+            onSubmit={handleSubmit}
+            onInvalidCapture={() => setShowValidationError(true)}
+          >
             {step === 1 && (
               <div>
                 <h2
@@ -118,20 +162,20 @@ export function Checkout() {
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block mb-1.5 text-gray-700" style={labelStyle}>NOME</label>
-                    <input type="text" placeholder="Maria" className={inputStyle} style={inputFont} />
+                    <label htmlFor="checkout-name" className="block mb-1.5 text-gray-700 uppercase" style={labelStyle}>Nome</label>
+                    <input id="checkout-name" name="name" autoComplete="given-name" type="text" placeholder="Maria" className={inputStyle} style={inputFont} required value={formData.name} onChange={handleInputChange} />
                   </div>
                   <div>
-                    <label className="block mb-1.5 text-gray-700" style={labelStyle}>SOBRENOME</label>
-                    <input type="text" placeholder="Silva" className={inputStyle} style={inputFont} />
+                    <label htmlFor="checkout-last-name" className="block mb-1.5 text-gray-700 uppercase" style={labelStyle}>Sobrenome</label>
+                    <input id="checkout-last-name" name="lastName" autoComplete="family-name" type="text" placeholder="Silva" className={inputStyle} style={inputFont} required value={formData.lastName} onChange={handleInputChange} />
                   </div>
                   <div className="sm:col-span-2">
-                    <label className="block mb-1.5 text-gray-700" style={labelStyle}>E-MAIL</label>
-                    <input type="email" placeholder="maria@email.com" className={inputStyle} style={inputFont} />
+                    <label htmlFor="checkout-email" className="block mb-1.5 text-gray-700 uppercase" style={labelStyle}>E-mail</label>
+                    <input id="checkout-email" name="email" autoComplete="email" type="email" placeholder="maria@email.com" className={inputStyle} style={inputFont} required value={formData.email} onChange={handleInputChange} />
                   </div>
                   <div className="sm:col-span-2">
-                    <label className="block mb-1.5 text-gray-700" style={labelStyle}>TELEFONE</label>
-                    <input type="tel" placeholder="(11) 99999-9999" className={inputStyle} style={inputFont} />
+                    <label htmlFor="checkout-phone" className="block mb-1.5 text-gray-700 uppercase" style={labelStyle}>Telefone</label>
+                    <input id="checkout-phone" name="phone" autoComplete="tel" type="tel" placeholder="(11) 99999-9999" className={inputStyle} style={inputFont} required value={formData.phone} onChange={handleInputChange} />
                   </div>
                 </div>
               </div>
@@ -147,28 +191,28 @@ export function Checkout() {
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="sm:col-span-2">
-                    <label className="block mb-1.5 text-gray-700" style={labelStyle}>CEP</label>
-                    <input type="text" placeholder="01234-567" className={inputStyle} style={inputFont} />
+                    <label htmlFor="checkout-postal-code" className="block mb-1.5 text-gray-700 uppercase" style={labelStyle}>CEP</label>
+                    <input id="checkout-postal-code" name="postalCode" autoComplete="postal-code" inputMode="numeric" type="text" placeholder="01234-567" className={inputStyle} style={inputFont} required value={formData.postalCode} onChange={handleInputChange} />
                   </div>
                   <div className="sm:col-span-2">
-                    <label className="block mb-1.5 text-gray-700" style={labelStyle}>ENDEREÇO</label>
-                    <input type="text" placeholder="Rua das Flores, 123" className={inputStyle} style={inputFont} />
+                    <label htmlFor="checkout-address" className="block mb-1.5 text-gray-700 uppercase" style={labelStyle}>Endereço</label>
+                    <input id="checkout-address" name="address" autoComplete="street-address" type="text" placeholder="Rua das Flores, 123" className={inputStyle} style={inputFont} required value={formData.address} onChange={handleInputChange} />
                   </div>
                   <div>
-                    <label className="block mb-1.5 text-gray-700" style={labelStyle}>COMPLEMENTO</label>
-                    <input type="text" placeholder="Apto 42" className={inputStyle} style={inputFont} />
+                    <label htmlFor="checkout-complement" className="block mb-1.5 text-gray-700 uppercase" style={labelStyle}>Complemento</label>
+                    <input id="checkout-complement" name="complement" autoComplete="address-line2" type="text" placeholder="Apto 42" className={inputStyle} style={inputFont} value={formData.complement} onChange={handleInputChange} />
                   </div>
                   <div>
-                    <label className="block mb-1.5 text-gray-700" style={labelStyle}>BAIRRO</label>
-                    <input type="text" placeholder="Jardins" className={inputStyle} style={inputFont} />
+                    <label htmlFor="checkout-district" className="block mb-1.5 text-gray-700 uppercase" style={labelStyle}>Bairro</label>
+                    <input id="checkout-district" name="district" type="text" placeholder="Jardins" className={inputStyle} style={inputFont} required value={formData.district} onChange={handleInputChange} />
                   </div>
                   <div>
-                    <label className="block mb-1.5 text-gray-700" style={labelStyle}>CIDADE</label>
-                    <input type="text" placeholder="São Paulo" className={inputStyle} style={inputFont} />
+                    <label htmlFor="checkout-city" className="block mb-1.5 text-gray-700 uppercase" style={labelStyle}>Cidade</label>
+                    <input id="checkout-city" name="city" autoComplete="address-level2" type="text" placeholder="São Paulo" className={inputStyle} style={inputFont} required value={formData.city} onChange={handleInputChange} />
                   </div>
                   <div>
-                    <label className="block mb-1.5 text-gray-700" style={labelStyle}>ESTADO</label>
-                    <input type="text" placeholder="SP" className={inputStyle} style={inputFont} />
+                    <label htmlFor="checkout-state" className="block mb-1.5 text-gray-700 uppercase" style={labelStyle}>Estado</label>
+                    <input id="checkout-state" name="state" autoComplete="address-level1" type="text" placeholder="SP" className={inputStyle} style={inputFont} required value={formData.state} onChange={handleInputChange} />
                   </div>
                 </div>
               </div>
@@ -185,38 +229,48 @@ export function Checkout() {
                 <div className="space-y-4">
                   <div className="grid grid-cols-1 gap-4">
                     <div>
-                      <label className="block mb-1.5 text-gray-700" style={labelStyle}>NÚMERO DO CARTÃO</label>
-                      <input type="text" placeholder="0000 0000 0000 0000" className={inputStyle} style={inputFont} />
+                      <label htmlFor="checkout-card-number" className="block mb-1.5 text-gray-700 uppercase" style={labelStyle}>Número do cartão</label>
+                      <input id="checkout-card-number" name="cardNumber" autoComplete="cc-number" inputMode="numeric" type="text" placeholder="0000 0000 0000 0000" className={inputStyle} style={inputFont} required value={formData.cardNumber} onChange={handleInputChange} />
                     </div>
                     <div>
-                      <label className="block mb-1.5 text-gray-700" style={labelStyle}>NOME NO CARTÃO</label>
-                      <input type="text" placeholder="MARIA SILVA" className={inputStyle} style={inputFont} />
+                      <label htmlFor="checkout-card-name" className="block mb-1.5 text-gray-700 uppercase" style={labelStyle}>Nome no cartão</label>
+                      <input id="checkout-card-name" name="cardName" autoComplete="cc-name" type="text" placeholder="MARIA SILVA" className={inputStyle} style={inputFont} required value={formData.cardName} onChange={handleInputChange} />
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <label className="block mb-1.5 text-gray-700" style={labelStyle}>VALIDADE</label>
-                        <input type="text" placeholder="MM/AA" className={inputStyle} style={inputFont} />
+                        <label htmlFor="checkout-card-expiry" className="block mb-1.5 text-gray-700 uppercase" style={labelStyle}>Validade</label>
+                        <input id="checkout-card-expiry" name="cardExpiry" autoComplete="cc-exp" inputMode="numeric" type="text" placeholder="MM/AA" className={inputStyle} style={inputFont} required value={formData.cardExpiry} onChange={handleInputChange} />
                       </div>
                       <div>
-                        <label className="block mb-1.5 text-gray-700" style={labelStyle}>CVV</label>
-                        <input type="text" placeholder="123" className={inputStyle} style={inputFont} />
+                        <label htmlFor="checkout-card-cvv" className="block mb-1.5 text-gray-700 uppercase" style={labelStyle}>CVV</label>
+                        <input id="checkout-card-cvv" name="cardCvv" autoComplete="cc-csc" inputMode="numeric" type="text" placeholder="123" className={inputStyle} style={inputFont} required value={formData.cardCvv} onChange={handleInputChange} />
                       </div>
                     </div>
                   </div>
                   <div className="flex items-center gap-2 text-gray-400 pt-2">
-                    <Lock className="w-3.5 h-3.5" />
+                    <Lock aria-hidden="true" className="w-3.5 h-3.5" />
                     <span style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.7rem" }}>
-                      Pagamento seguro com criptografia SSL
+                      Campos demonstrativos: não use dados reais.
                     </span>
                   </div>
                 </div>
               </div>
             )}
 
+            {showValidationError && (
+              <p className="mt-6 text-red-700" role="alert">
+                Preencha os campos obrigatórios desta etapa.
+              </p>
+            )}
+
             <div className="flex items-center justify-between mt-8 pt-6 border-t border-gray-100">
               {step > 1 ? (
                 <button
-                  onClick={() => setStep(step - 1)}
+                  type="button"
+                  onClick={() => {
+                    setStep((current) => current - 1);
+                    setShowValidationError(false);
+                  }}
                   className="text-gray-500 hover:text-black transition-colors"
                   style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.8rem" }}
                 >
@@ -232,14 +286,14 @@ export function Checkout() {
                 </Link>
               )}
               <button
-                onClick={handleSubmit}
+                type="submit"
                 className="bg-black text-white px-8 py-3.5 hover:bg-gray-800 transition-colors tracking-[0.15em] uppercase"
                 style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.8rem" }}
               >
-                {step === 3 ? "Confirmar Pedido" : "Continuar"}
+                {step === 3 ? "Concluir demonstração" : "Continuar"}
               </button>
             </div>
-          </div>
+          </form>
 
           {/* Order Summary Sidebar */}
           <div className="lg:col-span-1">
@@ -248,7 +302,7 @@ export function Checkout() {
                 className="mb-6 tracking-[0.1em] uppercase"
                 style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.85rem", fontWeight: 500 }}
               >
-                Seu Pedido
+                Resumo da demonstração
               </h3>
 
               <div className="space-y-4 mb-6">
@@ -272,7 +326,7 @@ export function Checkout() {
                         {item.product.name}
                       </p>
                       <p className="text-gray-400" style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.7rem" }}>
-                        {item.selectedColor} / {item.selectedSize} / Qty: {item.quantity}
+                        {item.selectedColor} / {item.selectedSize} / Qtd.: {item.quantity}
                       </p>
                     </div>
                     <span
@@ -296,10 +350,10 @@ export function Checkout() {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-500" style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.8rem" }}>
-                    Envio
+                    Entrega simulada
                   </span>
                   <span style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.8rem" }}>
-                    {shipping === 0 ? "Grátis" : formatPrice(shipping)}
+                    {formatPrice(shipping)}
                   </span>
                 </div>
               </div>

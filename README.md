@@ -1,67 +1,67 @@
-# Loja Virtual de Moda
+# Trama Clara
 
-E-commerce de moda feminina com visual editorial, vitrine de produtos, carrinho e experiencia de compra premium.
+> Menos peças. Mais combinações.
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-00D4FF?style=for-the-badge)](https://loja-virtual-de-moda.vercel.app/)
-[![Portfolio](https://img.shields.io/badge/Portfolio-LipDev.BR-BEF264?style=for-the-badge)](https://lipdev.vercel.app/)
-[![GitHub](https://img.shields.io/badge/GitHub-LipDev--sudo-181717?style=for-the-badge&logo=github)](https://github.com/LipDev-sudo)
+Trama Clara é uma demonstração funcional de e-commerce para uma cápsula de moda feminina versátil. O projeto foi pensado para mulheres que buscam montar mais combinações com uma seleção menor e legível de peças.
 
-## Visao do projeto
+Este é um produto fictício de portfólio. As peças, os dados de conta, os pedidos e o checkout são demonstrativos; nenhuma compra, cobrança ou transmissão de dados é realizada.
 
-Projeto focado em marcas de moda que precisam transmitir estilo, confianca e desejo de compra na primeira tela.
+[Ver demonstração](https://loja-virtual-de-moda.vercel.app/) · [Abrir catálogo](https://loja-virtual-de-moda.vercel.app/catalogo)
 
-## Demo
+![Homepage da Trama Clara em desktop](docs/screenshots/trama-clara-home-desktop.png)
 
-- Aplicacao online: https://loja-virtual-de-moda.vercel.app/
-- Portfolio principal: https://lipdev.vercel.app/
+## O que o projeto demonstra
 
-## Destaques
+- catálogo filtrável e ordenável com oito peças coerentes;
+- seleção de cor, tamanho e quantidade;
+- sacola persistida localmente entre recarregamentos;
+- checkout em etapas, explicitamente simulado;
+- conta fictícia com estados de pedido, endereço, formulário e limite transparente dos favoritos locais;
+- experiência responsiva em 1440×900 e 390×844;
+- navegação por teclado, foco visível e controles nomeados;
+- metadata social, canonical, favicon, robots e sitemap.
 
-- Vitrine com visual moderno e orientado a produto
-- Grid responsivo para colecoes e categorias
-- Carrinho de compras interativo
-- Experiencia mobile-first para compradores no celular
-- Base preparada para filtros, checkout e integracao com pagamentos
+## Direção do produto
+
+A identidade combina tipografia editorial com uma interface operacional limpa. Branco, carvão e argila mantêm a leitura clara; imagens próprias mostram as peças em contextos cotidianos, sem promoções, avaliações ou resultados comerciais inventados.
 
 ## Stack
 
-- React
-- TypeScript
-- Vite
-- Tailwind CSS
+- React 18, TypeScript e Vite;
+- React Router;
+- Tailwind CSS;
+- Vitest e Testing Library;
+- Playwright;
+- GitHub Actions.
 
-## Como rodar localmente
+## Executar localmente
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
-Para gerar uma build de producao:
+## Validar
 
 ```bash
+npm run typecheck
+npm run lint
+npm test
 npm run build
-npm run preview
+npm run test:e2e
+npm audit
 ```
 
-## Estrutura de evolucao
+O Playwright requer o Chromium instalado com `npx playwright install chromium`.
 
-Este projeto pode evoluir com:
+## Persistência e privacidade
 
-- Integracao com API real
-- Painel administrativo
-- Autenticacao de usuarios
-- Checkout ou integracao com WhatsApp
-- Banco de dados para produtos, pedidos e clientes
+A sacola usa apenas `localStorage`. Os formulários não enviam informações para servidores e não existem integrações de pagamento. Não use dados pessoais reais ao explorar a demonstração.
 
 ## Autor
 
-Desenvolvido por **Hamilton Felipe Soares da Silva** - LipDev.BR.
+[Hamilton Felipe Soares da Silva](https://github.com/LipDev-sudo)
 
-- Portfolio: https://lipdev.vercel.app/
-- GitHub: https://github.com/LipDev-sudo
-- LinkedIn: https://www.linkedin.com/in/hamilton-felipe-875054383/
+## Licença
 
-## Licenca
-
-Este projeto esta sob a licenca MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+[MIT](LICENSE)
