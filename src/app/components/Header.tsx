@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
-import { Menu, Search, ShoppingBag, User, X } from "lucide-react";
+import { Menu, ShoppingBag, User, X } from "lucide-react";
 import { useCart } from "../context/CartContext";
 
 const navigation = [
@@ -48,9 +48,6 @@ export function Header() {
         </Link>
 
         <div className="site-header__utilities">
-          <button type="button" className="icon-button icon-button--desktop" aria-label="Buscar">
-            <Search aria-hidden="true" />
-          </button>
           <button
             type="button"
             className="icon-button icon-button--desktop"

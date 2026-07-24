@@ -26,7 +26,7 @@ export function Account() {
   };
 
   return (
-    <main className="account-page">
+    <div className="account-page">
       <header className="page-heading">
         <div className="content-shell">
           <p className="eyebrow">Ambiente demonstrativo</p>
@@ -126,6 +126,6 @@ export function Account() {
           )}
         </section>
       </div>
-    </main>
+    </div>
   );
 }

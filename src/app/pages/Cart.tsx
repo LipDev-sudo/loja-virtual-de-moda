@@ -4,7 +4,7 @@ import { Minus, Plus, X, ShoppingBag, ArrowRight } from "lucide-react";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 
 export function Cart() {
-  const { items, updateQuantity, removeItem, totalPrice } = useCart();
+  const { items, updateQuantity, removeItem, totalItems, totalPrice } = useCart();
 
   const formatPrice = (price: number) =>
     new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(price);
@@ -15,7 +15,7 @@ export function Cart() {
   if (items.length === 0) {
     return (
       <div className="min-h-[60vh] flex flex-col items-center justify-center px-4">
-        <ShoppingBag className="w-16 h-16 text-gray-200 mb-6" />
+        <ShoppingBag aria-hidden="true" className="w-16 h-16 text-gray-200 mb-6" />
         <h1
           className="mb-3"
           style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.8rem", fontWeight: 400 }}
@@ -51,7 +51,7 @@ export function Cart() {
             letterSpacing: "0.05em",
           }}
         >
-          Sacola ({items.length} {items.length === 1 ? "item" : "itens"})
+          Sacola ({totalItems} {totalItems === 1 ? "item" : "itens"})
         </h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
@@ -86,7 +86,7 @@ export function Cart() {
                         onClick={() => removeItem(item.product.id, item.selectedColor, item.selectedSize)}
                         className="p-1 text-gray-400 hover:text-black transition-colors flex-shrink-0"
                       >
-                        <X className="w-4 h-4" />
+                        <X aria-hidden="true" className="w-4 h-4" />
                       </button>
                     </div>
                     <div className="mt-1 space-y-0.5">
@@ -106,7 +106,7 @@ export function Cart() {
                         className="p-2 hover:bg-gray-50"
                         onClick={() => updateQuantity(item.product.id, item.selectedColor, item.selectedSize, item.quantity - 1)}
                       >
-                        <Minus className="w-3 h-3" />
+                        <Minus aria-hidden="true" className="w-3 h-3" />
                       </button>
                       <span
                         className="w-8 text-center"
@@ -120,7 +120,7 @@ export function Cart() {
                         className="p-2 hover:bg-gray-50"
                         onClick={() => updateQuantity(item.product.id, item.selectedColor, item.selectedSize, item.quantity + 1)}
                       >
-                        <Plus className="w-3 h-3" />
+                        <Plus aria-hidden="true" className="w-3 h-3" />
                       </button>
                     </div>
                     <span
@@ -182,7 +182,7 @@ export function Cart() {
                 style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.8rem" }}
               >
                 Continuar para o checkout
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight aria-hidden="true" className="w-4 h-4" />
               </Link>
 
               <Link

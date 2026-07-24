@@ -25,7 +25,7 @@ describe("identidade Trama Clara", () => {
   it("nomeia os controles utilitários para leitores de tela", () => {
     renderHeader();
 
-    expect(screen.getByRole("button", { name: "Buscar" })).toBeVisible();
+    expect(screen.getByRole("button", { name: "Abrir conta demonstrativa" })).toBeVisible();
     expect(screen.getByRole("button", { name: "Abrir sacola" })).toBeVisible();
   });
 

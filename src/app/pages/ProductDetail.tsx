@@ -19,8 +19,16 @@ export function ProductDetail() {
 
   if (!product) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p style={{ fontFamily: "'Inter', sans-serif" }}>Produto não encontrado.</p>
+      <div className="min-h-screen flex flex-col gap-4 items-center justify-center px-4 text-center">
+        <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "2rem" }}>
+          Produto não encontrado
+        </h1>
+        <p style={{ fontFamily: "'Inter', sans-serif" }}>
+          Esta peça não faz parte da cápsula demonstrativa.
+        </p>
+        <Link className="text-link" to="/catalogo">
+          Voltar ao catálogo
+        </Link>
       </div>
     );
   }
@@ -33,8 +41,10 @@ export function ProductDetail() {
       toast.error("Selecione um tamanho");
       return;
     }
-    addItem(product, product.colors[selectedColor].name, product.sizes[selectedSize]);
-    toast.success("Peça adicionada à sacola.");
+    addItem(product, product.colors[selectedColor].name, product.sizes[selectedSize], quantity);
+    toast.success(
+      `${quantity} ${quantity === 1 ? "peça adicionada" : "peças adicionadas"} à sacola.`,
+    );
   };
 
   const relatedProducts = products.filter((p) => p.id !== product.id && p.category === product.category).slice(0, 4);
@@ -47,9 +57,9 @@ export function ProductDetail() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <div className="flex items-center gap-2 text-gray-400" style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.75rem" }}>
           <Link to="/" className="hover:text-black transition-colors">Home</Link>
-          <ChevronRight className="w-3 h-3" />
+          <ChevronRight className="w-3 h-3" aria-hidden="true" />
           <Link to="/catalogo" className="hover:text-black transition-colors">Cápsula</Link>
-          <ChevronRight className="w-3 h-3" />
+          <ChevronRight className="w-3 h-3" aria-hidden="true" />
           <span className="text-gray-700">{product.name}</span>
         </div>
       </div>
@@ -138,7 +148,7 @@ export function ProductDetail() {
                       title={color.name}
                     >
                       {selectedColor === i && (
-                        <Check className={`w-3.5 h-3.5 absolute inset-0 m-auto ${color.hex === "#1a1a1a" || color.hex === "#722f37" || color.hex === "#556b2f" ? "text-white" : "text-black"}`} />
+                        <Check aria-hidden="true" className={`w-3.5 h-3.5 absolute inset-0 m-auto ${color.hex === "#1a1a1a" || color.hex === "#722f37" || color.hex === "#556b2f" ? "text-white" : "text-black"}`} />
                       )}
                     </button>
                   ))}
@@ -187,7 +197,7 @@ export function ProductDetail() {
                     className="p-3 hover:bg-gray-50 transition-colors"
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
                   >
-                    <Minus className="w-3.5 h-3.5" />
+                    <Minus className="w-3.5 h-3.5" aria-hidden="true" />
                   </button>
                   <span
                     className="w-10 text-center"
@@ -201,7 +211,7 @@ export function ProductDetail() {
                     className="p-3 hover:bg-gray-50 transition-colors"
                     onClick={() => setQuantity(quantity + 1)}
                   >
-                    <Plus className="w-3.5 h-3.5" />
+                    <Plus className="w-3.5 h-3.5" aria-hidden="true" />
                   </button>
                 </div>
 
@@ -221,7 +231,7 @@ export function ProductDetail() {
                   onClick={() => setLiked(!liked)}
                   className="p-3 border border-gray-200 hover:border-black transition-colors"
                 >
-                  <Heart className={`w-5 h-5 ${liked ? "fill-red-500 text-red-500" : "text-gray-600"}`} />
+                  <Heart aria-hidden="true" className={`w-5 h-5 ${liked ? "fill-red-500 text-red-500" : "text-gray-600"}`} />
                 </button>
               </div>
 
@@ -240,7 +250,7 @@ export function ProductDetail() {
                       className="text-gray-500 flex items-center gap-2"
                       style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.8rem" }}
                     >
-                      <span className="w-1 h-1 bg-gray-300 rounded-full" />
+                      <span aria-hidden="true" className="w-1 h-1 bg-gray-300 rounded-full" />
                       {detail}
                     </li>
                   ))}
