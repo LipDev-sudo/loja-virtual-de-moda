@@ -11,4 +11,7 @@ it("deixa explícito que a conta e seus dados são demonstrativos", async () => 
   await user.click(screen.getByRole("button", { name: "Meus dados" }));
   expect(screen.getByRole("textbox", { name: "Nome" })).toBeVisible();
   expect(screen.getByRole("textbox", { name: "E-mail" })).toBeVisible();
+
+  await user.click(screen.getByRole("button", { name: "Favoritos" }));
+  expect(screen.getByText(/não formam uma lista compartilhada/i)).toBeVisible();
 });

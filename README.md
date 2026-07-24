@@ -16,7 +16,7 @@ Este é um produto fictício de portfólio. As peças, os dados de conta, os ped
 - seleção de cor, tamanho e quantidade;
 - sacola persistida localmente entre recarregamentos;
 - checkout em etapas, explicitamente simulado;
-- conta fictícia com estados de pedido, favoritos, endereço e formulário;
+- conta fictícia com estados de pedido, endereço, formulário e limite transparente dos favoritos locais;
 - experiência responsiva em 1440×900 e 390×844;
 - navegação por teclado, foco visível e controles nomeados;
 - metadata social, canonical, favicon, robots e sitemap.

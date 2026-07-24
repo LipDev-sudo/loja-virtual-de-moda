@@ -81,8 +81,8 @@ export function Account() {
           {activeTab === "favoritos" && (
             <div className="empty-state">
               <Heart aria-hidden="true" />
-              <h2>Nenhuma peça salva</h2>
-              <p>Use o coração na cápsula para montar uma lista de combinações.</p>
+              <h2>Favoritos nesta navegação</h2>
+              <p>Os corações dos produtos são interações locais desta demonstração e não formam uma lista compartilhada.</p>
             </div>
           )}
 
