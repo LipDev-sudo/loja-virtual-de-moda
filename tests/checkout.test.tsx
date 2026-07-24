@@ -5,7 +5,7 @@ import { Checkout } from "../src/app/pages/Checkout";
 import { CartProvider } from "../src/app/context/CartContext";
 import { products } from "../src/app/data/products";
 
-it("associa os campos de checkout aos rótulos visíveis", async () => {
+it("valida campos obrigatórios e preserva os dados entre as etapas", async () => {
   const user = userEvent.setup();
   localStorage.setItem(
     "lipdev-moda-cart",
@@ -31,5 +31,16 @@ it("associa os campos de checkout aos rótulos visíveis", async () => {
   expect(screen.getByRole("textbox", { name: "E-mail" })).toBeVisible();
 
   await user.click(screen.getByRole("button", { name: "Continuar" }));
+  expect(screen.getByRole("alert")).toHaveTextContent("Preencha os campos obrigatórios");
+  expect(screen.queryByRole("textbox", { name: "CEP" })).not.toBeInTheDocument();
+
+  await user.type(screen.getByRole("textbox", { name: "Nome" }), "Maria");
+  await user.type(screen.getByRole("textbox", { name: "Sobrenome" }), "Silva");
+  await user.type(screen.getByRole("textbox", { name: "E-mail" }), "maria@example.com");
+  await user.type(screen.getByRole("textbox", { name: "Telefone" }), "11999999999");
+  await user.click(screen.getByRole("button", { name: "Continuar" }));
   expect(screen.getByRole("textbox", { name: "CEP" })).toBeVisible();
+
+  await user.click(screen.getByRole("button", { name: "Voltar" }));
+  expect(screen.getByRole("textbox", { name: "Nome" })).toHaveValue("Maria");
 });

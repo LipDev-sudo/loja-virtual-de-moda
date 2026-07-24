@@ -31,4 +31,7 @@ test("percorre catálogo, variação, sacola e checkout simulado", async ({ page
   await expect(page.getByRole("heading", { name: "Checkout demonstrativo" })).toBeVisible();
   await page.reload();
   await expect(page.getByText("Camisa Ampla Areia")).toBeVisible();
+  await page.getByRole("button", { name: "Continuar" }).click();
+  await expect(page.getByRole("alert")).toContainText("Preencha os campos obrigatórios");
+  await expect(page.getByRole("textbox", { name: "CEP" })).toHaveCount(0);
 });
