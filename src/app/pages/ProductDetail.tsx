@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Minus, Plus, Heart, ChevronRight, Check } from "lucide-react";
 import { ProductCard } from "../components/ProductCard";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
-import { toast, Toaster } from "sonner";
+import { toast } from "sonner";
 
 export function ProductDetail() {
   const { id } = useParams();
@@ -42,10 +42,9 @@ export function ProductDetail() {
 
   return (
     <div className="min-h-screen">
-      <Toaster position="top-center" />
       {/* Breadcrumb */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <div className="flex items-center gap-2 text-gray-400" style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.75rem" }}>
+        <div className="flex items-center gap-2 text-gray-500" style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.75rem" }}>
           <Link to="/" className="hover:text-black transition-colors">Home</Link>
           <ChevronRight className="w-3 h-3" />
           <Link to="/catalogo" className="hover:text-black transition-colors">Coleção</Link>
@@ -62,6 +61,8 @@ export function ProductDetail() {
             <div className="aspect-[3/4] bg-gray-50 overflow-hidden">
               <ImageWithFallback
                 src={product.images[selectedImage]}
+                loading="eager"
+                sizes="(min-width: 1024px) 50vw, 100vw"
                 alt={product.name}
                 className="w-full h-full object-cover"
               />
@@ -71,12 +72,15 @@ export function ProductDetail() {
                 {product.images.map((img, i) => (
                   <button
                     key={i}
+                    type="button"
+                    aria-label={`Ver imagem ${i + 1}`}
+                    aria-current={selectedImage === i}
                     onClick={() => setSelectedImage(i)}
                     className={`w-20 h-24 overflow-hidden border-2 transition-colors ${
                       selectedImage === i ? "border-black" : "border-transparent"
                     }`}
                   >
-                    <ImageWithFallback src={img} alt="" className="w-full h-full object-cover" />
+                    <ImageWithFallback src={img} sizes="80px" alt="" className="w-full h-full object-cover" />
                   </button>
                 ))}
               </div>
@@ -89,7 +93,7 @@ export function ProductDetail() {
               {product.isNew && (
                 <span
                   className="inline-block mb-4 text-gray-500 tracking-[0.2em] uppercase"
-                  style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.7rem" }}
+                  style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.75rem" }}
                 >
                   Novidade
                 </span>
@@ -114,7 +118,7 @@ export function ProductDetail() {
                 </span>
                 {product.originalPrice && (
                   <span
-                    className="text-gray-400 line-through"
+                    className="text-gray-500 line-through"
                     style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.9rem" }}
                   >
                     {formatPrice(product.originalPrice)}
@@ -141,6 +145,9 @@ export function ProductDetail() {
                   {product.colors.map((color, i) => (
                     <button
                       key={color.name}
+                      type="button"
+                      aria-label={`Cor ${color.name}`}
+                      aria-pressed={selectedColor === i}
                       onClick={() => setSelectedColor(i)}
                       className={`w-8 h-8 rounded-full relative transition-all ${
                         selectedColor === i ? "ring-2 ring-black ring-offset-2" : "ring-1 ring-gray-200"
@@ -194,7 +201,9 @@ export function ProductDetail() {
               <div className="flex gap-3 mb-6">
                 <div className="flex items-center border border-gray-200">
                   <button
-                    className="p-3 hover:bg-gray-50 transition-colors"
+                    type="button"
+                    aria-label="Diminuir quantidade"
+                    className="flex items-center justify-center w-11 h-11 hover:bg-gray-50 transition-colors"
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
                   >
                     <Minus className="w-3.5 h-3.5" />
@@ -206,7 +215,9 @@ export function ProductDetail() {
                     {quantity}
                   </span>
                   <button
-                    className="p-3 hover:bg-gray-50 transition-colors"
+                    type="button"
+                    aria-label="Aumentar quantidade"
+                    className="flex items-center justify-center w-11 h-11 hover:bg-gray-50 transition-colors"
                     onClick={() => setQuantity(quantity + 1)}
                   >
                     <Plus className="w-3.5 h-3.5" />
@@ -222,8 +233,11 @@ export function ProductDetail() {
                 </button>
 
                 <button
+                  type="button"
+                  aria-label={liked ? "Remover dos favoritos" : "Adicionar aos favoritos"}
+                  aria-pressed={liked}
                   onClick={() => setLiked(!liked)}
-                  className="p-3 border border-gray-200 hover:border-black transition-colors"
+                  className="flex items-center justify-center w-12 h-12 border border-gray-200 hover:border-black transition-colors"
                 >
                   <Heart className={`w-5 h-5 ${liked ? "fill-red-500 text-red-500" : "text-gray-600"}`} />
                 </button>

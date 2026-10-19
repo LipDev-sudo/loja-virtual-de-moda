@@ -65,6 +65,7 @@ export function Cart() {
                 <Link to={`/produto/${item.product.id}`} className="w-24 sm:w-32 aspect-[3/4] flex-shrink-0 bg-gray-50 overflow-hidden">
                   <ImageWithFallback
                     src={item.product.image}
+                    sizes="128px"
                     alt={item.product.name}
                     className="w-full h-full object-cover"
                   />
@@ -81,8 +82,10 @@ export function Cart() {
                         </h3>
                       </Link>
                       <button
+                        type="button"
+                        aria-label={`Remover ${item.product.name} do carrinho`}
                         onClick={() => removeItem(item.product.id, item.selectedColor, item.selectedSize)}
-                        className="p-1 text-gray-400 hover:text-black transition-colors flex-shrink-0"
+                        className="p-1 text-gray-500 hover:text-black transition-colors flex-shrink-0"
                       >
                         <X className="w-4 h-4" />
                       </button>
@@ -99,19 +102,24 @@ export function Cart() {
                   <div className="flex items-center justify-between mt-3">
                     <div className="flex items-center border border-gray-200">
                       <button
-                        className="p-2 hover:bg-gray-50"
+                        type="button"
+                        aria-label={`Diminuir quantidade de ${item.product.name}`}
+                        className="flex items-center justify-center w-11 h-11 hover:bg-gray-50"
                         onClick={() => updateQuantity(item.product.id, item.selectedColor, item.selectedSize, item.quantity - 1)}
                       >
                         <Minus className="w-3 h-3" />
                       </button>
                       <span
                         className="w-8 text-center"
+                        aria-live="polite"
                         style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.8rem" }}
                       >
                         {item.quantity}
                       </span>
                       <button
-                        className="p-2 hover:bg-gray-50"
+                        type="button"
+                        aria-label={`Aumentar quantidade de ${item.product.name}`}
+                        className="flex items-center justify-center w-11 h-11 hover:bg-gray-50"
                         onClick={() => updateQuantity(item.product.id, item.selectedColor, item.selectedSize, item.quantity + 1)}
                       >
                         <Plus className="w-3 h-3" />
@@ -159,7 +167,7 @@ export function Cart() {
               </div>
 
               {shipping > 0 && (
-                <p className="text-gray-500 mb-4 pb-4 border-b border-gray-200" style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.7rem" }}>
+                <p className="text-gray-500 mb-4 pb-4 border-b border-gray-200" style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.75rem" }}>
                   Faltam {formatPrice(500 - totalPrice)} para frete grátis
                 </p>
               )}

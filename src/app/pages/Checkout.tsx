@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router";
+import { Link, Navigate } from "react-router";
 import { useCart } from "../context/CartContext";
 import { ChevronRight, Lock, Check } from "lucide-react";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 
 export function Checkout() {
   const { items, totalPrice, clearCart } = useCart();
-  const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [orderPlaced, setOrderPlaced] = useState(false);
 
@@ -17,8 +16,7 @@ export function Checkout() {
   const total = totalPrice + shipping;
 
   if (items.length === 0 && !orderPlaced) {
-    navigate("/carrinho");
-    return null;
+    return <Navigate to="/carrinho" replace />;
   }
 
   if (orderPlaced) {
@@ -40,7 +38,7 @@ export function Checkout() {
           Obrigada pela sua compra. Você receberá um e-mail com os detalhes do seu pedido.
         </p>
         <p
-          className="text-gray-400 mb-8"
+          className="text-gray-500 mb-8"
           style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.8rem" }}
         >
           Pedido #MN-2026-{Math.floor(Math.random() * 9000 + 1000)}
@@ -77,6 +75,12 @@ export function Checkout() {
 
   return (
     <div className="min-h-screen bg-white">
+      <p
+        className="border-b border-[#E8CFC9]/60 bg-[#FBF7F6] px-4 py-2 text-center text-[#6B5E5B]"
+        style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.75rem" }}
+      >
+        Loja de demonstração: nenhum pedido ou pagamento real é processado.
+      </p>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         {/* Steps */}
         <div className="flex items-center justify-center gap-4 sm:gap-8 mb-12">
@@ -85,14 +89,14 @@ export function Checkout() {
               <div className="flex items-center gap-2">
                 <div
                   className={`w-7 h-7 rounded-full flex items-center justify-center transition-colors ${
-                    step >= s.num ? "bg-black text-white" : "bg-gray-100 text-gray-400"
+                    step >= s.num ? "bg-black text-white" : "bg-gray-100 text-gray-500"
                   }`}
-                  style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.7rem" }}
+                  style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.75rem" }}
                 >
                   {step > s.num ? <Check className="w-3.5 h-3.5" /> : s.num}
                 </div>
                 <span
-                  className={`hidden sm:inline ${step >= s.num ? "text-black" : "text-gray-400"}`}
+                  className={`hidden sm:inline ${step >= s.num ? "text-black" : "text-gray-500"}`}
                   style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.8rem" }}
                 >
                   {s.label}
@@ -203,9 +207,9 @@ export function Checkout() {
                       </div>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2 text-gray-400 pt-2">
+                  <div className="flex items-center gap-2 text-gray-500 pt-2">
                     <Lock className="w-3.5 h-3.5" />
-                    <span style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.7rem" }}>
+                    <span style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.75rem" }}>
                       Pagamento seguro com criptografia SSL
                     </span>
                   </div>
@@ -260,6 +264,7 @@ export function Checkout() {
                     <div className="w-14 h-18 flex-shrink-0 bg-white overflow-hidden">
                       <ImageWithFallback
                         src={item.product.image}
+                        sizes="80px"
                         alt={item.product.name}
                         className="w-full h-full object-cover"
                       />
@@ -271,8 +276,8 @@ export function Checkout() {
                       >
                         {item.product.name}
                       </p>
-                      <p className="text-gray-400" style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.7rem" }}>
-                        {item.selectedColor} / {item.selectedSize} / Qty: {item.quantity}
+                      <p className="text-gray-500" style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.75rem" }}>
+                        {item.selectedColor} / {item.selectedSize} / Qtd: {item.quantity}
                       </p>
                     </div>
                     <span
