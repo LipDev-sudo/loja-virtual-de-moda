@@ -16,3 +16,7 @@ yarn-error.log*
 next-env.d.ts
 .vercel
 .vite/
+test-results/
+playwright-report/
+
+.lighthouseci/

@@ -63,6 +63,12 @@ export function Account() {
           >
             Olá, Maria! Bem-vinda de volta.
           </p>
+          <p
+            className="text-gray-500 mt-1"
+            style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.75rem" }}
+          >
+            Conta e pedidos fictícios, exibidos apenas para demonstração.
+          </p>
         </div>
       </div>
 
@@ -87,7 +93,7 @@ export function Account() {
                 </button>
               ))}
               <button
-                className="w-full flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-red-500 transition-colors text-left mt-4"
+                className="w-full flex items-center gap-3 px-4 py-3 text-gray-500 hover:text-red-500 transition-colors text-left mt-4"
                 style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.85rem" }}
               >
                 <LogOut className="w-4 h-4" />
@@ -127,12 +133,12 @@ export function Account() {
                                   ? "bg-green-50 text-green-700"
                                   : "bg-amber-50 text-amber-700"
                               }`}
-                              style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.7rem" }}
+                              style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.75rem" }}
                             >
                               {order.status}
                             </span>
                           </div>
-                          <p className="text-gray-400" style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.8rem" }}>
+                          <p className="text-gray-500" style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.8rem" }}>
                             {order.date} &middot; {order.items} {order.items === 1 ? "item" : "itens"}
                           </p>
                         </div>
@@ -165,7 +171,7 @@ export function Account() {
                   <p className="text-gray-500" style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.85rem" }}>
                     Você ainda não tem favoritos.
                   </p>
-                  <p className="text-gray-400 mt-1" style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.8rem" }}>
+                  <p className="text-gray-500 mt-1" style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.8rem" }}>
                     Clique no coração nos produtos para salvá-los aqui.
                   </p>
                 </div>
@@ -194,7 +200,7 @@ export function Account() {
                     </div>
                     <span
                       className="px-2.5 py-0.5 bg-gray-50 text-gray-500"
-                      style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.7rem" }}
+                      style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.75rem" }}
                     >
                       Padrão
                     </span>

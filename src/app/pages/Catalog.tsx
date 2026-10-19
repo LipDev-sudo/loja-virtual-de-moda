@@ -1,10 +1,15 @@
 import { useState } from "react";
+import { useSearchParams } from "react-router";
 import { products, categories } from "../data/products";
 import { ProductCard } from "../components/ProductCard";
 import { SlidersHorizontal, ChevronDown } from "lucide-react";
 
 export function Catalog() {
-  const [selectedCategory, setSelectedCategory] = useState("Todos");
+  const [searchParams] = useSearchParams();
+  const initialCategory = searchParams.get("categoria");
+  const [selectedCategory, setSelectedCategory] = useState(
+    initialCategory && categories.includes(initialCategory) ? initialCategory : "Todos"
+  );
   const [sortBy, setSortBy] = useState("relevance");
   const [showFilters, setShowFilters] = useState(false);
 
@@ -58,6 +63,7 @@ export function Catalog() {
 
           <div className="relative">
             <select
+              aria-label="Ordenar produtos"
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
               className="appearance-none bg-transparent pr-6 text-gray-600 focus:outline-none cursor-pointer"
@@ -68,7 +74,7 @@ export function Catalog() {
               <option value="price-desc">Maior Preço</option>
               <option value="name">Nome A-Z</option>
             </select>
-            <ChevronDown className="w-3.5 h-3.5 absolute right-0 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+            <ChevronDown className="w-3.5 h-3.5 absolute right-0 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" />
           </div>
         </div>
 
@@ -103,7 +109,7 @@ export function Catalog() {
               className={`pb-2 transition-colors whitespace-nowrap ${
                 selectedCategory === cat
                   ? "text-black border-b border-black"
-                  : "text-gray-400 hover:text-gray-600"
+                  : "text-gray-500 hover:text-gray-600"
               }`}
               style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.8rem", letterSpacing: "0.1em" }}
             >
@@ -115,14 +121,14 @@ export function Catalog() {
         {/* Products Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-8">
           {sortedProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard key={product.id} product={product} headingLevel="h2" />
           ))}
         </div>
 
         {sortedProducts.length === 0 && (
           <div className="text-center py-20">
             <p
-              className="text-gray-400"
+              className="text-gray-500"
               style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.9rem" }}
             >
               Nenhum produto encontrado nesta categoria.

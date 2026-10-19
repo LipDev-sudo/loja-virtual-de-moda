@@ -5,7 +5,15 @@ import { useState, useRef } from "react";
 import { motion, useInView } from "motion/react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 
-export function ProductCard({ product, index = 0 }: { product: Product; index?: number }) {
+export function ProductCard({
+  product,
+  index = 0,
+  headingLevel: Heading = "h3",
+}: {
+  product: Product;
+  index?: number;
+  headingLevel?: "h2" | "h3";
+}) {
   const [liked, setLiked] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const ref = useRef(null);
@@ -28,6 +36,7 @@ export function ProductCard({ product, index = 0 }: { product: Product; index?: 
         <div className="relative aspect-[3/4] overflow-hidden bg-[#F5EDEB]">
           <ImageWithFallback
             src={product.image}
+            sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
             alt={product.name}
             className="w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-110"
           />
@@ -38,10 +47,10 @@ export function ProductCard({ product, index = 0 }: { product: Product; index?: 
           />
           {product.isNew && (
             <span
-              className="absolute top-4 left-4 px-3 py-1.5 bg-[#B76E79] text-white"
+              className="absolute top-4 left-4 px-3 py-1.5 bg-[#9E5A64] text-white"
               style={{
                 fontFamily: "'Inter', sans-serif",
-                fontSize: "0.6rem",
+                fontSize: "0.75rem",
                 letterSpacing: "0.2em",
                 fontWeight: 500,
               }}
@@ -51,10 +60,10 @@ export function ProductCard({ product, index = 0 }: { product: Product; index?: 
           )}
           {product.isSale && (
             <span
-              className="absolute top-4 left-4 px-3 py-1.5 bg-[#9E5A64] text-white"
+              className="absolute top-4 left-4 px-3 py-1.5 bg-[#85495A] text-white"
               style={{
                 fontFamily: "'Inter', sans-serif",
-                fontSize: "0.6rem",
+                fontSize: "0.75rem",
                 letterSpacing: "0.2em",
                 fontWeight: 500,
               }}
@@ -71,7 +80,7 @@ export function ProductCard({ product, index = 0 }: { product: Product; index?: 
             }}
           >
             <span
-              className="text-[0.65rem] tracking-[0.25em] uppercase text-white"
+              className="text-[0.75rem] tracking-[0.25em] uppercase text-white"
               style={{ fontFamily: "'Inter', sans-serif", fontWeight: 400 }}
             >
               Ver Produto
@@ -82,27 +91,30 @@ export function ProductCard({ product, index = 0 }: { product: Product; index?: 
 
       {/* Wishlist */}
       <button
-        className="absolute top-4 right-4 p-2 bg-white/90 backdrop-blur-sm rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-white hover:scale-110"
+        type="button"
+        aria-label={liked ? `Remover ${product.name} dos favoritos` : `Adicionar ${product.name} aos favoritos`}
+        aria-pressed={liked}
+        className="absolute top-3 right-3 flex items-center justify-center w-11 h-11 bg-white/90 backdrop-blur-sm rounded-full sm:opacity-0 sm:group-hover:opacity-100 focus-visible:opacity-100 transition-all duration-300 hover:bg-white hover:scale-110"
         onClick={(e) => {
           e.preventDefault();
           setLiked(!liked);
         }}
       >
         <Heart
-          className={`w-4 h-4 transition-colors ${liked ? "fill-[#B76E79] text-[#B76E79]" : "text-[#8B7D7A]"}`}
+          className={`w-4 h-4 transition-colors ${liked ? "fill-[#B76E79] text-[#9E5A64]" : "text-[#6B5E5B]"}`}
         />
       </button>
 
       <div className="mt-4 space-y-1.5">
         {/* Brand name */}
         <p
-          className="text-[#B76E79] uppercase"
-          style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.6rem", letterSpacing: "0.15em", fontWeight: 500 }}
+          className="text-[#9E5A64] uppercase"
+          style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.75rem", letterSpacing: "0.15em", fontWeight: 500 }}
         >
           Maison
         </p>
-        <h3
-          className="text-[#1A1A1A] group-hover:text-[#9E5A64] transition-colors duration-300"
+        <Heading
+          className="text-[#1A1A1A] group-hover:text-[#85495A] transition-colors duration-300"
           style={{
             fontFamily: "'Cormorant Garamond', serif",
             fontSize: "1.05rem",
@@ -111,10 +123,10 @@ export function ProductCard({ product, index = 0 }: { product: Product; index?: 
           }}
         >
           {product.name}
-        </h3>
+        </Heading>
         <div className="flex items-center gap-2.5 pt-0.5">
           <span
-            className="text-[#B76E79]"
+            className="text-[#9E5A64]"
             style={{
               fontFamily: "'Cormorant Garamond', serif",
               fontSize: "1.1rem",
@@ -126,8 +138,8 @@ export function ProductCard({ product, index = 0 }: { product: Product; index?: 
           </span>
           {product.originalPrice && (
             <span
-              className="text-[#8B7D7A] line-through"
-              style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.7rem" }}
+              className="text-[#6B5E5B] line-through"
+              style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.75rem" }}
             >
               {formatPrice(product.originalPrice)}
             </span>
